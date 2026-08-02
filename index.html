@@ -16,32 +16,38 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            min-height: 100%;
+            min-height: 100vh;
             font-family: 'Noto Serif KR', serif !important;
-            background-color: #121212;
             color: #ffffff;
+            background-color: #000000;
         }
 
-        /* 깃허브의 실제 파일명 chsd.jpg 완벽 적용 배경 레이어 */
-        .bg-layer {
+        /* 1. 배경 이미지 태그를 화면 전체에 고정 (모바일 100% 작동) */
+        .bg-img {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1; /* 시 내용 뒤에 배경 고정 */
-            
-            background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
-                url('chsd.jpg?v=1');
-            
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 화면 비율에 맞춰 꽉 채움 */
+            z-index: 1;
         }
 
-        /* 전체 레이아웃 (스크롤 시에도 여유로운 구조) */
+        /* 2. 배경을 단아하고 어둡게 눌러주는 암막 레이어 */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            z-index: 2;
+        }
+
+        /* 3. 실제 시 내용이 들어가는 래퍼 (배경보다 위에 위치) */
         .wrapper {
+            position: relative;
+            z-index: 3;
             width: 100%;
             min-height: 100vh;
             display: flex;
@@ -53,13 +59,13 @@
         .container {
             width: 100%;
             max-width: 520px;
-            background-color: rgba(15, 15, 15, 0.82);
+            background-color: rgba(15, 15, 15, 0.80);
             padding: 45px 30px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
             text-align: center;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
             margin: auto;
         }
 
@@ -115,8 +121,9 @@
 </head>
 <body>
 
-    <!-- 고정 배경 레이어 -->
-    <div class="bg-layer"></div>
+    <!-- 직접 이미지 태그 배치 (CSS 오류 회피 최후의 수단) -->
+    <img src="chsd.jpg" alt="배경사진" class="bg-img">
+    <div class="bg-overlay"></div>
 
     <div class="wrapper">
         <div class="container">
@@ -171,7 +178,6 @@
             if (!isSpeaking) {
                 synth.cancel(); 
                 
-                // 화면 한자(괄호) 제거 후 한글만 단아하게 낭송
                 let poemText = document.getElementById('poem-text').innerText;
                 poemText = poemText.replace(/\([^)]*\)/g, '');
                 
