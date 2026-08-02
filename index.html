@@ -3,152 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신라의 향연(香煙) - 고흥당</title>
+    <title>신라의 향연 - 안석(고흥당)</title>
+    <!-- 구글 서라벌체 (Noto Serif KR) 불러오기 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
-
+        * {
+            box-sizing: border-box;
+        }
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Gowun Batang', serif;
+            font-family: 'Noto Serif KR', serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px 15px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            /* 배경 사진 설정 (사진 파일명을 bg.jpg 로 하시면 됩니다) */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
         }
-
         .container {
-            max-width: 500px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+            background-color: rgba(20, 20, 20, 0.75);
+            padding: 40px 25px;
             border-radius: 12px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             text-align: center;
+            backdrop-filter: blur(5px);
         }
-
         .title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #f1c40f;
-            margin-bottom: 8px;
             letter-spacing: 2px;
+            margin-bottom: 8px;
+            color: #f3e5ab; /* 고전적인 연황금색 */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-
-        .pen-name {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 30px;
+        .author {
+            font-size: 1.05rem;
+            color: #cccccc;
+            margin-bottom: 35px;
+            font-weight: 300;
         }
-
+        .content {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            word-break: keep-all;
+            white-space: pre-line;
+            color: #eaeaea;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+        .audio-control {
+            margin-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+        }
         .audio-btn {
-            background-color: transparent;
-            border: 1px solid #f1c40f;
-            color: #f1c40f;
-            padding: 10px 20px;
-            font-family: 'Gowun Batang', serif;
-            font-size: 0.95rem;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #8b7355, #5c4a38);
+            color: #ffffff;
+            border: 1px solid #a68b68;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-family: 'Noto Serif KR', serif;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        .audio-btn:hover {
-            background-color: #f1c40f;
-            color: #121212;
+        .audio-btn:active {
+            transform: scale(0.98);
         }
-
-        .poem-content {
-            font-size: 1.05rem;
-            line-height: 2.2;
-            color: #dcdcdc;
-            text-align: center;
-            white-space: pre-line;
-            word-break: keep-all;
-        }
-
-        .stanza {
-            margin-bottom: 28px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 0.8rem;
-            color: #555;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 20px;
+        /* 클로바더빙/타입캐스트에서 받은 MP3 파일용 플레이어 */
+        audio {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="title">신라의 향연(香煙)</div>
-    <div class="pen-name">- 고흥당 -</div>
+    <div class="container">
+        <div class="title">신라의 향연</div>
+        <div class="author">안석 (고흥당)</div>
+        
+        <div class="content" id="poem-text">
+천년의 세월 넘어
+서라벌 달빛 아래 향로를 사르고
 
-    <!-- 낭송 버튼 -->
-    <button class="audio-btn" onclick="recitePoem()">▶ 시 낭송 듣기</button>
+짙은 향연 속으로
+잊혀진 역사의 숨결이 차오른다.
 
-    <div class="poem-content" id="poemText">
-<div class="stanza">서라벌 어둠이 짙어지면
-돌은 두려움을 깎아
-단아한 자태로 고여들고,</div>
+바람결에 실려온 고요한 종소리
+가슴속 깊은 울림으로 남아서
 
-<div class="stanza">하늘 뜻을 물어 신라를 품고픈
-여왕은,
-생명이 솟아나는 우물이 되어
-땅 위에 수주(水柱)를 세웠다.</div>
+오늘 밤도 은은히
+신라의 꿈을 품어 안는다.
+        </div>
 
-<div class="stanza">창(窓)의 턱을 넘지 않는
-채움과 비움이 만나는
-차원의 경계선에,</div>
-
-<div class="stanza">염원이 그 문턱을 넘어 재가 되면
-단단한 기하(幾何)는
-하늘로 일어선 향로가 되고.</div>
-
-<div class="stanza">마침내 발원에서 피어오른 염원은
-우물 밖의 아득한 길을 트나니,</div>
-
-<div class="stanza">하늘에 닿아 별빛 사이로 스며들 때,
-신라 천년의 흔들림마저
-자욱한 아름다움으로 가라앉아라.</div>
+        <div class="audio-control">
+            <!-- MP3 오디오 파일이 있는 경우 (audio.mp3 올리셨을 때) -->
+            <audio controls>
+                <source src="audio.mp3" type="audio/mp3">
+                브라우저가 오디오 재생을 지원하지 않습니다.
+            </audio>
+        </div>
     </div>
-
-    <div class="footer">
-        © 고흥당 All Rights Reserved.
-    </div>
-</div>
-
-<script>
-    function recitePoem() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel(); // 기존 재생 중지
-            
-            const poem = `신라의 향연. 고흥당. 
-            서라벌 어둠이 짙어지면 돌은 두려움을 깎아 단아한 자태로 고여들고,
-            하늘 뜻을 물어 신라를 품고픈 여왕은, 생명이 솟아나는 우물이 되어 땅 위에 수주를 세웠다.
-            창의 턱을 넘지 않는 채움과 비움이 만나는 차원의 경계선에,
-            염원이 그 문턱을 넘어 재가 되면 단단한 기하는 하늘로 일어선 향로가 되고.
-            마침내 발원에서 피어오른 염원은 우물 밖의 아득한 길을 트나니,
-            하늘에 닿아 별빛 사이로 스며들 때, 신라 천년의 흔들림마저 자욱한 아름다움으로 가라앉아라.`;
-
-            const speech = new SpeechSynthesisUtterance(poem);
-            speech.lang = 'ko-KR';
-            speech.rate = 0.8; // 천천히 시적으로 읽도록 조절
-            speech.pitch = 0.9; // 약간 낮고 안정된 톤
-
-            window.speechSynthesis.speak(speech);
-        } else {
-            alert('이 브라우저는 음성 낭송 기능을 지원하지 않습니다.');
-        }
-    }
-</script>
 
 </body>
 </html>
