@@ -12,28 +12,48 @@
         * {
             box-sizing: border-box;
         }
-        html {
-            height: 100%;
-        }
-        body {
-            font-family: 'Noto Serif KR', serif !important;
+        html, body {
             margin: 0;
-            padding: 40px 15px;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            font-family: 'Noto Serif KR', serif !important;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* [핵심] 모바일/PC 모두 절대 끊기지 않는 강제 배경 레이어 */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* 글자 뒤로 배치 */
+            
+            /* 소문자/대문자 파일명 및 상대경로(. /) 완벽 지원 */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+                url('./chsd.JPG'),
+                url('./chsd.jpg'),
+                url('chsd.JPG'),
+                url('chsd.jpg');
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 시 카드를 감싸는 전체 레이아웃 */
+        .wrapper {
+            width: 100%;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #121212;
-            
-            /* 배경 이미지 설정 (긴 시 분량 완벽 지원 및 스크롤 고정) */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('chsd.jpg'), url('chsd.JPG');
-            background-size: cover !important;
-            background-position: center center !important;
-            background-repeat: no-repeat !important;
-            background-attachment: fixed !important; /* 스크롤해도 배경 고정 */
-            
-            color: #ffffff;
+            padding: 40px 15px;
         }
+
         .container {
             width: 100%;
             max-width: 520px;
@@ -44,8 +64,9 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
             text-align: center;
             backdrop-filter: blur(6px);
-            margin: auto 0; /* 세로 중앙 정렬 보완 */
+            margin: auto;
         }
+
         .title {
             font-size: 1.85rem;
             font-weight: 700;
@@ -98,11 +119,15 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="title">신라의 향연(香煙)</div>
-        <div class="author">- 고흥당 -</div>
-        
-        <div class="content" id="poem-text">서라벌 어둠이 짙어지면
+    <!-- 고정 배경 레이어 -->
+    <div class="bg-layer"></div>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="title">신라의 향연(香煙)</div>
+            <div class="author">- 고흥당 -</div>
+            
+            <div class="content" id="poem-text">서라벌 어둠이 짙어지면
 돌은 두려움을 깎아
 단아한 자태로 고여들고,
 
@@ -126,10 +151,11 @@
 신라 천년의 흔들림마저
 자욱한 아름다움으로 가라앉아라.</div>
 
-        <div class="audio-control">
-            <button class="audio-btn" onclick="toggleSpeech()">
-                <span id="btn-icon">▶</span> <span id="btn-text">시 낭송 듣기</span>
-            </button>
+            <div class="audio-control">
+                <button class="audio-btn" onclick="toggleSpeech()">
+                    <span id="btn-icon">▶</span> <span id="btn-text">시 낭송 듣기</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -149,7 +175,7 @@
             if (!isSpeaking) {
                 synth.cancel(); 
                 
-                // 화면의 한자 괄호 제거 후 한글만 낭송
+                // 화면 한자(괄호) 제거 후 한글 낭송
                 let poemText = document.getElementById('poem-text').innerText;
                 poemText = poemText.replace(/\([^)]*\)/g, '');
                 
