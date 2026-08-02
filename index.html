@@ -22,18 +22,18 @@
             background-color: #000000;
         }
 
-        /* 1. 배경 이미지 태그를 화면 전체에 고정 (모바일 100% 작동) */
+        /* 모바일/PC 전천후 배경 이미지 레이어 */
         .bg-img {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 화면 비율에 맞춰 꽉 채움 */
+            object-fit: cover;
             z-index: 1;
         }
 
-        /* 2. 배경을 단아하고 어둡게 눌러주는 암막 레이어 */
+        /* 단아한 고요함을 더해주는 암막 레이어 */
         .bg-overlay {
             position: fixed;
             top: 0;
@@ -44,7 +44,6 @@
             z-index: 2;
         }
 
-        /* 3. 실제 시 내용이 들어가는 래퍼 (배경보다 위에 위치) */
         .wrapper {
             position: relative;
             z-index: 3;
@@ -121,8 +120,7 @@
 </head>
 <body>
 
-    <!-- 직접 이미지 태그 배치 (CSS 오류 회피 최후의 수단) -->
-    <img src="chsd.jpg" alt="배경사진" class="bg-img">
+    <img src="./chsd.jpg" alt="배경사진" class="bg-img">
     <div class="bg-overlay"></div>
 
     <div class="wrapper">
