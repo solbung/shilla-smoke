@@ -33,14 +33,14 @@
             z-index: 1;
         }
 
-        /* 은은함을 위해 어둡게 누르는 오버레이도 살짝 옅게 조정 */
+        /* 배경 조율 오버레이 */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.35); /* 기존 0.65에서 0.35로 밝혀서 배경 강조 */
+            background-color: rgba(0, 0, 0, 0.35);
             z-index: 2;
         }
 
@@ -55,18 +55,16 @@
             padding: 40px 15px;
         }
 
-        /* ★ 시 쪽지 박스 투명도 조절 ★ */
+        /* 은은한 반투명 카드 박스 */
         .container {
             width: 100%;
             max-width: 520px;
-            /* 불투명도를 낮춰 뒤의 배경(첨성대/별빛)이 투과되도록 설정 */
-            background-color: rgba(10, 10, 10, 0.50); 
+            background-color: rgba(10, 10, 10, 0.55);
             padding: 45px 30px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             text-align: center;
-            /* 유리 느낌을 주는 블러 효과 */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             margin: auto;
@@ -77,7 +75,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 8px;
-            color: #f3e5ab; /* 황금빛 */
+            color: #f3e5ab;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
         }
         .author {
@@ -97,7 +95,6 @@
             margin-bottom: 40px;
             letter-spacing: 0.5px;
             text-align: center;
-            /* 가독성을 높이기 위해 글자 뒤에 선명한 그림자 추가 */
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0,0,0,0.8);
         }
         .audio-control {
@@ -128,13 +125,14 @@
 </head>
 <body>
 
-    <img src="chsd.JPG" alt="배경사진" class="bg-img">
+    <!-- GitHub 저장소에 올라간 소문자 파일명 그대로 지정 -->
+    <img src="chsd.jpg" alt="배경사진" class="bg-img">
     <div class="bg-overlay"></div>
 
     <div class="wrapper">
         <div class="container">
             <div class="title">신라의 향연(香煙)</div>
-            <div class="author">- 고흥당 -</div>
+            <div class="author">- 안석 -</div>
             
             <div class="content" id="poem-text">서라벌 어둠이 짙어지면
 돌은 두려움을 깎아
@@ -187,7 +185,7 @@
                 let poemText = document.getElementById('poem-text').innerText;
                 poemText = poemText.replace(/\([^)]*\)/g, '');
                 
-                speech.text = "신라의 향연. 고흥당. " + poemText;
+                speech.text = "신라의 향연. 안석. " + poemText;
                 synth.speak(speech);
                 
                 isSpeaking = true;
