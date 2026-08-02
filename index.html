@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신라의 향연(香煙) - 고흥당</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Gowun Batang', serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f1c40f;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .pen-name {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .audio-btn {
+            background-color: transparent;
+            border: 1px solid #f1c40f;
+            color: #f1c40f;
+            padding: 10px 20px;
+            font-family: 'Gowun Batang', serif;
+            font-size: 0.95rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 35px;
+        }
+
+        .audio-btn:hover {
+            background-color: #f1c40f;
+            color: #121212;
+        }
+
+        .poem-content {
+            font-size: 1.05rem;
+            line-height: 2.2;
+            color: #dcdcdc;
+            text-align: center;
+            white-space: pre-line;
+            word-break: keep-all;
+        }
+
+        .stanza {
+            margin-bottom: 28px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">신라의 향연(香煙)</div>
+    <div class="pen-name">- 고흥당 -</div>
+
+    <!-- 낭송 버튼 -->
+    <button class="audio-btn" onclick="recitePoem()">▶ 시 낭송 듣기</button>
+
+    <div class="poem-content" id="poemText">
+<div class="stanza">서라벌 어둠이 짙어지면
+돌은 두려움을 깎아
+단아한 자태로 고여들고,</div>
+
+<div class="stanza">하늘 뜻을 물어 신라를 품고픈
+여왕은,
+생명이 솟아나는 우물이 되어
+땅 위에 수주(水柱)를 세웠다.</div>
+
+<div class="stanza">창(窓)의 턱을 넘지 않는
+채움과 비움이 만나는
+차원의 경계선에,</div>
+
+<div class="stanza">염원이 그 문턱을 넘어 재가 되면
+단단한 기하(幾何)는
+하늘로 일어선 향로가 되고.</div>
+
+<div class="stanza">마침내 발원에서 피어오른 염원은
+우물 밖의 아득한 길을 트나니,</div>
+
+<div class="stanza">하늘에 닿아 별빛 사이로 스며들 때,
+신라 천년의 흔들림마저
+자욱한 아름다움으로 가라앉아라.</div>
+    </div>
+
+    <div class="footer">
+        © 고흥당 All Rights Reserved.
+    </div>
+</div>
+
+<script>
+    function recitePoem() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // 기존 재생 중지
+            
+            const poem = `신라의 향연. 고흥당. 
+            서라벌 어둠이 짙어지면 돌은 두려움을 깎아 단아한 자태로 고여들고,
+            하늘 뜻을 물어 신라를 품고픈 여왕은, 생명이 솟아나는 우물이 되어 땅 위에 수주를 세웠다.
+            창의 턱을 넘지 않는 채움과 비움이 만나는 차원의 경계선에,
+            염원이 그 문턱을 넘어 재가 되면 단단한 기하는 하늘로 일어선 향로가 되고.
+            마침내 발원에서 피어오른 염원은 우물 밖의 아득한 길을 트나니,
+            하늘에 닿아 별빛 사이로 스며들 때, 신라 천년의 흔들림마저 자욱한 아름다움으로 가라앉아라.`;
+
+            const speech = new SpeechSynthesisUtterance(poem);
+            speech.lang = 'ko-KR';
+            speech.rate = 0.8; // 천천히 시적으로 읽도록 조절
+            speech.pitch = 0.9; // 약간 낮고 안정된 톤
+
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert('이 브라우저는 음성 낭송 기능을 지원하지 않습니다.');
+        }
+    }
+</script>
+
+</body>
+</html>
