@@ -20,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* 배경 사진 설정 (사진 파일명을 bg.jpg 로 하시면 됩니다) */
+            /* 배경 사진 설정 (bg.jpg 파일 사용) */
             background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('bg.jpg');
             background-size: cover;
             background-position: center;
@@ -44,7 +44,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 8px;
-            color: #f3e5ab; /* 고전적인 연황금색 */
+            color: #f3e5ab; /* 연황금색 */
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         .author {
@@ -85,12 +85,6 @@
         .audio-btn:active {
             transform: scale(0.98);
         }
-        /* 클로바더빙/타입캐스트에서 받은 MP3 파일용 플레이어 */
-        audio {
-            width: 100%;
-            margin-top: 15px;
-            border-radius: 20px;
-        }
     </style>
 </head>
 <body>
@@ -99,8 +93,7 @@
         <div class="title">신라의 향연</div>
         <div class="author">안석 (고흥당)</div>
         
-        <div class="content" id="poem-text">
-천년의 세월 넘어
+        <div class="content" id="poem-text">천년의 세월 넘어
 서라벌 달빛 아래 향로를 사르고
 
 짙은 향연 속으로
@@ -110,17 +103,48 @@
 가슴속 깊은 울림으로 남아서
 
 오늘 밤도 은은히
-신라의 꿈을 품어 안는다.
-        </div>
+신라의 꿈을 품어 안는다.</div>
 
         <div class="audio-control">
-            <!-- MP3 오디오 파일이 있는 경우 (audio.mp3 올리셨을 때) -->
-            <audio controls>
-                <source src="audio.mp3" type="audio/mp3">
-                브라우저가 오디오 재생을 지원하지 않습니다.
-            </audio>
+            <button class="audio-btn" onclick="toggleSpeech()">
+                <span id="btn-icon">▶</span> <span id="btn-text">시 낭송 듣기</span>
+            </button>
         </div>
     </div>
+
+    <script>
+        let isSpeaking = false;
+        let speech = new SpeechSynthesisUtterance();
+        
+        speech.lang = 'ko-KR';
+        speech.rate = 0.8;  // 은은한 낭송을 위해 천천히 설정
+        speech.pitch = 0.9; // 조금 낮고 정갈한 톤 설정
+
+        function toggleSpeech() {
+            const poemText = document.getElementById('poem-text').innerText;
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+
+            if (!isSpeaking) {
+                speech.text = poemText;
+                window.speechSynthesis.speak(speech);
+                isSpeaking = true;
+                btnIcon.innerText = "⏹";
+                btnText.innerText = "낭송 멈추기";
+
+                speech.onend = function() {
+                    isSpeaking = false;
+                    btnIcon.innerText = "▶";
+                    btnText.innerText = "시 낭송 듣기";
+                };
+            } else {
+                window.speechSynthesis.cancel();
+                isSpeaking = false;
+                btnIcon.innerText = "▶";
+                btnText.innerText = "시 낭송 듣기";
+            }
+        }
+    </script>
 
 </body>
 </html>
