@@ -21,8 +21,8 @@
             justify-content: center;
             align-items: center;
             background-color: #121212;
-            /* 알려주신 배경 파일명 chsd.JPG 적용 */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('chsd.jpg');
+            /* 소문자 chsd.jpg 와 대문자 chsd.JPG 모두 차례대로 찾아서 적용 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('chsd.jpg'), url('chsd.JPG');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -143,7 +143,7 @@
             if (!isSpeaking) {
                 synth.cancel(); 
                 
-                // 화면의 한자 괄호(香煙, 水柱 등)를 읽기 직전 제거하여 중복 발음 방지
+                // 화면의 한자 괄호(香煙, 水柱 등)를 제거하고 한글만 읽기
                 let poemText = document.getElementById('poem-text').innerText;
                 poemText = poemText.replace(/\([^)]*\)/g, '');
                 
